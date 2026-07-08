@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Field Guide - Images</title>
+</head>
+<body>
+    <header>
+        <h1>HTML Field Guide</h1>
+        <p>Topic: Images</p>
+    </header>
+
+    <nav>
+        <h2>Site Navigation</h2>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="links.html">Links</a></li>
+            <li><a href="attributes.html">Attributes</a></li>
+            <li><a href="semantic-tags.html">Semantic Tags</a></li>
+            <li><a href="formatting.html">Formatting</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>What Is an Image Tag?</h2>
+        <p>The <code>&lt;img&gt;</code> tag embeds an image in a page. It does not need a closing tag, and it relies on attributes to work correctly.</p>
+
+        <h2>The src Attribute</h2>
+        <p>Tells the browser where to find the image file.</p>
+
+        <h2>The alt Attribute</h2>
+        <p>Describes the image in words, for screen readers and for cases when the image cannot load.</p>
+
+        <h2>Example Image</h2>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150'><rect width='200' height='150' fill='%234a90d9'/><circle cx='100' cy='75' r='50' fill='%23ffffff'/></svg>" alt="A white circle centered on a blue rectangle" width="200" height="150">
+
+        <h2>The width and height Attributes</h2>
+        <p>Set the size of the image in pixels. The example above uses <code>width="200"</code> and <code>height="150"</code>.</p>
+
+        <h2>Using figure and figcaption</h2>
+        <figure>
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150'><rect width='200' height='150' fill='%23d94a4a'/><polygon points='100,20 180,130 20,130' fill='%23ffffff'/></svg>" alt="A white triangle centered on a red rectangle" width="200" height="150">
+            <figcaption>Figure 1: A triangle inside a figure element, with a caption below it.</figcaption>
+        </figure>
+    </main>
+
+    <footer>
+        <p>HTML Field Guide Project</p>
+    </footer>
+</body>
+</html>
