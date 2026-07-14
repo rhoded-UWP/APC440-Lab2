@@ -18,5 +18,29 @@
             <li><a href="accessibility.html">Accessibility</a></li>
         </ul>
     </nav>
+
+    <h2>The &lt;img&gt; Tag</h2>
+    <p>Images are added to a page with the <code>&lt;img&gt;</code> tag. Unlike most
+    HTML elements, it has no closing tag and no content between tags &mdash; it is a
+    void element that just points to a file.</p>
+    <pre><code>&lt;img src="html5-logo.svg" alt="HTML5 logo" width="150"&gt;</code></pre>
+    <p>Live example, borrowed from the freely licensed HTML5 logo on Wikimedia Commons:</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML5 logo and wordmark" width="150">
+
+    <h2>Key Attributes</h2>
+    <ul>
+        <li><code>src</code> &mdash; the path or URL to the image file (required)</li>
+        <li><code>alt</code> &mdash; a text alternative shown if the image fails to load
+        and read aloud by screen readers</li>
+        <li><code>width</code> and <code>height</code> &mdash; set the display size</li>
+    </ul>
+
+    <h2>Why alt Matters</h2>
+    <p>The <code>alt</code> attribute is not optional in good web design. It keeps a
+    page usable for people using screen readers, on slow connections, or when an image
+    link breaks. This is one of the core ideas covered on the
+    <a href="accessibility.html">Accessibility</a> page of this site.</p>
+
+    <p>Learn more: <a href="https://www.w3schools.com/html/html_images.asp" target="_blank" rel="noopener noreferrer">W3Schools &ndash; HTML Images</a></p>
 </body>
 </html>
