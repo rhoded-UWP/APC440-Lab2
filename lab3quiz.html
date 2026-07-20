@@ -21,24 +21,142 @@
     </nav>
 
     <main>
-        <section id="scoreboard">
-            <h2>Scoreboard</h2>
-            <!-- Contestant name, running score, and question counter go here. -->
+        <!--
+            One <section> per question. The heading is just the question number;
+            the question text, inputs and feedback all live inside the section.
+
+            Each section carries class="question" so the stylesheet can target
+            the prompt, labels and inputs inside it.
+        -->
+        <section class="question" id="question-1">
+            <h2>Question 1</h2>
+
+            <!--
+                Question 1.
+
+                No JavaScript here. The answer checking is done by two features
+                working together:
+
+                1. The "pattern" attribute below is HTML's own validation. The
+                   browser compares what the user types against that regular
+                   expression and marks the input valid or invalid.
+                2. The stylesheet then uses the :valid and :invalid selectors to
+                   show one of the two messages underneath.
+
+                The messages must come AFTER the input in the markup, because the
+                CSS uses the sibling combinator (~) to reach them.
+            -->
+            <p class="prompt">What is CSS?</p>
+
+            <label for="q1">Type the words that CSS stands for:</label>
+
+            <!--
+                pattern="[Cc]ascading [Ss]tyle [Ss]heets?"
+                  [Cc]  - first letter may be capital or lowercase
+                  s?    - the trailing "s" is optional, so "sheet" and
+                          "sheets" are both accepted
+                The pattern must match the WHOLE value, so stray spaces or
+                extra words will not pass.
+
+                required  - an empty box counts as invalid, so the "correct"
+                            message cannot appear before anyone has typed
+            -->
+            <input type="text"
+                   id="q1"
+                   name="q1"
+                   required
+                   pattern="[Cc]ascading [Ss]tyle [Ss]heets?"
+                   placeholder="Your answer"
+                   autocomplete="off"
+                   spellcheck="false">
+
+            <p class="feedback feedback-correct">Correct &mdash; CSS stands for Cascading Style Sheets.</p>
+            <p class="feedback feedback-incorrect">Not quite. Try again.</p>
         </section>
 
-        <section id="question-board">
-            <h2>Question Board</h2>
-            <!-- Quiz questions go here, one block per question. -->
+        <section class="question" id="question-2">
+            <h2>Question 2</h2>
+
+            <!--
+                Question 2. Multiple choice, still no JavaScript.
+
+                This one is simpler than Question 1. Each radio button gets its
+                own feedback paragraph, and CSS shows a paragraph only when its
+                matching radio is :checked.
+
+                Clearing old feedback is free: a group of radios that share the
+                same "name" allows only ONE to be checked at a time, so picking
+                a new option automatically un-checks the old one and its message
+                disappears on its own.
+
+                Every <input> must come BEFORE the feedback paragraphs, because
+                the ~ combinator can only reach FORWARD to later siblings. That
+                is why all four choices are listed first and all four messages
+                follow at the bottom.
+            -->
+            <p class="prompt">In CSS, what is the process called when a style rule
+            applied to a parent element is automatically passed down to a child element?</p>
+
+            <!--
+                <fieldset> and <legend> group the four radios so a screen
+                reader announces them as one question rather than four
+                unrelated buttons.
+
+                The ids below run b, c, a, d rather than a, b, c, d. That is
+                deliberate: the choices were reordered so the correct answer
+                (q2a) sits third instead of first. An id is a NAME, not a
+                position, so the stylesheet still finds each choice no matter
+                where it appears. Reordering the markup needed no CSS change
+                at all.
+            -->
+            <fieldset class="choices">
+                <legend>Choose one answer:</legend>
+
+                <input type="radio" id="q2b" name="q2">
+                <label for="q2b">Inheritance, where the parent's rule overrides any rule set on the child</label>
+
+                <input type="radio" id="q2c" name="q2">
+                <label for="q2c">Inheritance, where a rule on the child is ignored unless it is marked <code>!important</code></label>
+
+                <input type="radio" id="q2a" name="q2">
+                <label for="q2a">Inheritance, where a local rule on the child will override the inherited value</label>
+
+                <input type="radio" id="q2d" name="q2">
+                <label for="q2d">Inheritance, which only applies when the child has no style rules of its own</label>
+
+                <p class="feedback fb-q2a">Correct. The child inherits the parent's
+                value, but a rule that targets the child directly takes precedence over
+                anything inherited. Inheritance supplies a starting value; it does not
+                lock it in.</p>
+
+                <p class="feedback fb-q2b">Not quite &mdash; this has the precedence
+                backwards. The name is right, but a rule targeting the child directly
+                beats the value handed down from the parent, not the other way around.</p>
+
+                <p class="feedback fb-q2c">Not quite. <code>!important</code> is a real
+                part of CSS, but it is not needed here. An ordinary rule on the child
+                already overrides an inherited value, because a direct rule outranks
+                inheritance on its own.</p>
+
+                <p class="feedback fb-q2d">Not quite, though this is close. Inheritance
+                still happens even when the child has its own rules &mdash; the inherited
+                value is simply overridden for that one property. The process is not
+                switched off; it is outranked.</p>
+            </fieldset>
         </section>
 
-        <section id="answers">
-            <h2>Your Answer</h2>
-            <!-- Answer choices and the submit control go here. -->
+        <section class="question" id="question-3">
+            <h2>Question 3</h2>
+            <!-- Question text, inputs and feedback go here. Follow the pattern
+                 used in Question 1 (text answer) or Question 2 (multiple choice). -->
+            <p class="under-construction">Under construction</p>
         </section>
 
-        <section id="results">
-            <h2>Results</h2>
-            <!-- Final score and feedback go here once the quiz is finished. -->
+        <section class="question" id="question-4">
+            <h2>Question 4</h2>
+            <!-- Question text, inputs and feedback go here. Follow the pattern
+                 used in Question 1 (text answer) or Question 2 (multiple choice). -->
+            <p class="under-construction">Under construction</p>
         </section>
     </main>
 

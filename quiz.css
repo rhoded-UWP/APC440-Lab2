@@ -76,7 +76,7 @@ h1::before {
 
 /* Tagline under the show title, styled as a terminal prompt. */
 h1::after {
-    content: "> come on down_";
+    content: "> come on down...";
     display: block;
     margin-top: 0.75rem;
     font-size: 0.75rem;
@@ -170,6 +170,193 @@ a:hover,
 a:focus {
     color: var(--amber);
     border-bottom-color: var(--amber);
+}
+
+/* --- Questions ------------------------------------------------------------ */
+/*
+   Each question is its own <section class="question" id="question-N">, so the
+   selectors below reach inside one question at a time. The panel styling comes
+   from the "main > section" rule further up.
+*/
+.question .prompt {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+/*
+   The ">" restricts this to a label that is a DIRECT child of the section, i.e.
+   the prompt above Question 1's text box. Without it, this rule would also hit
+   the four answer labels inside Question 2's fieldset and render those full
+   sentences in small uppercase.
+*/
+.question > label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.question input[type="text"] {
+    width: 100%;
+    max-width: 24rem;
+    padding: 0.6rem 0.8rem;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text);
+    background-color: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+}
+
+.question input[type="text"]:focus {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+}
+
+/* --- Answer checking, done entirely in CSS --------------------------------- */
+/*
+   Both messages start hidden. The rules below reveal exactly one of them.
+
+   The two messages deliberately use DIFFERENT timing:
+
+   Correct   -> :valid, which updates live on every keystroke. The moment the
+                answer is right, the user sees it. Praise should be instant.
+
+   Incorrect -> :user-invalid, which does NOT match while the user is still
+                typing. It waits until they have finished with the field
+                (tabbing away, clicking elsewhere, or submitting). This is the
+                whole point: half-typed "cascading sty" is not a wrong answer,
+                it is an unfinished one, and the page should not scold someone
+                mid-word.
+
+   Note the contrast with plain :invalid, which is true from the very first
+   keystroke and caused exactly that problem.
+
+   The ~ combinator selects a later sibling, which is why the two <p> elements
+   sit after the <input> inside the same .question block.
+*/
+.feedback {
+    display: none;
+    margin: 0.75rem 0 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+/* Live: fires as soon as the typed answer matches. */
+.question input[type="text"]:valid ~ .feedback-correct {
+    display: block;
+    color: #8fbf6a;
+    background-color: rgba(143, 191, 106, 0.1);
+    border-left: 3px solid #8fbf6a;
+}
+
+/* Delayed: only after the user leaves the field or submits. */
+.question input[type="text"]:user-invalid ~ .feedback-incorrect {
+    display: block;
+    color: #d98a7a;
+    background-color: rgba(217, 138, 122, 0.1);
+    border-left: 3px solid #d98a7a;
+}
+
+/* Placeholder text in the not-yet-written questions. */
+.under-construction {
+    margin: 0;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    opacity: 0.7;
+}
+
+/* Inline code snippets, e.g. !important inside an answer choice. */
+code {
+    padding: 0.1em 0.35em;
+    font-family: inherit;
+    font-size: 0.95em;
+    color: var(--amber);
+    background-color: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+}
+
+/* --- Multiple choice ------------------------------------------------------ */
+/*
+   The radios and their labels are flat siblings (required, so the ~ combinator
+   can reach the feedback paragraphs). Grid does the layout: with two columns,
+   items auto-place left to right and wrap, so each radio lands in column 1 and
+   its label in column 2, forming rows without any extra wrapper elements.
+*/
+.choices {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem 0.7rem;
+    align-items: baseline;
+    margin: 0;
+    padding: 1rem 1.25rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+}
+
+.choices legend {
+    /* Browsers disagree on whether a legend becomes a grid item; spanning both
+       columns keeps the layout identical either way. */
+    grid-column: 1 / -1;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.choices input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    accent-color: var(--amber);
+}
+
+.choices label {
+    cursor: pointer;
+    color: var(--text);
+}
+
+.choices input[type="radio"]:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+}
+
+/* Feedback paragraphs stretch across both grid columns. */
+.choices .feedback {
+    grid-column: 1 / -1;
+    margin: 0.25rem 0 0;
+}
+
+/*
+   One rule per choice. Only the checked radio's message is displayed, and
+   because radios in a group are mutually exclusive, at most one can ever match.
+*/
+#q2a:checked ~ .fb-q2a,
+#q2b:checked ~ .fb-q2b,
+#q2c:checked ~ .fb-q2c,
+#q2d:checked ~ .fb-q2d {
+    display: block;
+}
+
+#q2a:checked ~ .fb-q2a {
+    color: #8fbf6a;
+    background-color: rgba(143, 191, 106, 0.1);
+    border-left: 3px solid #8fbf6a;
+}
+
+#q2b:checked ~ .fb-q2b,
+#q2c:checked ~ .fb-q2c,
+#q2d:checked ~ .fb-q2d {
+    color: #d98a7a;
+    background-color: rgba(217, 138, 122, 0.1);
+    border-left: 3px solid #d98a7a;
 }
 
 /* --- Footer --------------------------------------------------------------- */
