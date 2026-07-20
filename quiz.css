@@ -1,0 +1,201 @@
+/* ==========================================================================
+   Lab 3 Quiz - dark console game show theme
+   Standalone stylesheet. This page does not load style.css.
+   ========================================================================== */
+
+/* --- Palette and shared values -------------------------------------------- */
+:root {
+    --bg: #14131a;
+    --panel: #1c1b24;
+    --panel-lit: #22212c;
+
+    --text: #e8e6ea;
+    --text-soft: #9b96a6;
+
+    --amber: #c9a227;
+    --teal: #5f9ea0;
+    --line: #34323f;
+
+    /* Bulbs are decoration only now: unlit, low contrast, no motion. */
+    --bulb: #4a4636;
+
+    --console: "Consolas", "Lucida Console", "Courier New", monospace;
+}
+
+/* --- Stage: flat charcoal, no spotlights ---------------------------------- */
+body {
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+    font-family: var(--console);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    background-color: var(--bg);
+}
+
+/* Everything sits inside one centered column. */
+h1,
+nav,
+main,
+footer {
+    max-width: 52rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Title: a dim marquee plaque, the one lit element on the page ---------- */
+h1 {
+    position: relative;
+    margin: 0 auto 2rem;
+    padding: 2rem 2.5rem;
+    font-size: clamp(1.5rem, 5vw, 2.4rem);
+    font-weight: bold;
+    letter-spacing: 0.18em;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--amber);
+    background-color: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    text-shadow: 0 0 14px rgba(201, 162, 39, 0.35);
+}
+
+/* The marquee bulbs: a static dotted ring, unlit and quiet. */
+h1::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-radius: 4px;
+    background:
+        radial-gradient(circle, var(--bulb) 40%, transparent 44%) repeat-x top left / 26px 8px,
+        radial-gradient(circle, var(--bulb) 40%, transparent 44%) repeat-x bottom left / 26px 8px,
+        radial-gradient(circle, var(--bulb) 40%, transparent 44%) repeat-y top left / 8px 26px,
+        radial-gradient(circle, var(--bulb) 40%, transparent 44%) repeat-y top right / 8px 26px;
+    pointer-events: none;
+}
+
+/* Tagline under the show title, styled as a terminal prompt. */
+h1::after {
+    content: "> come on down_";
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: normal;
+    letter-spacing: 0.16em;
+    text-transform: none;
+    color: var(--teal);
+    text-shadow: none;
+}
+
+/* --- Navigation: plain console tabs ---------------------------------------- */
+nav {
+    margin-bottom: 2rem;
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav a {
+    display: block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--teal);
+    background-color: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+}
+
+nav a:hover,
+nav a:focus {
+    color: var(--bg);
+    background-color: var(--teal);
+    border-color: var(--teal);
+}
+
+/* --- Main: the game board backdrop ---------------------------------------- */
+main {
+    padding: 2rem;
+    background-color: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+/* Each empty region of the shell gets its own quiet panel. */
+main > section {
+    min-height: 6rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--panel-lit);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--amber);
+    border-radius: 6px;
+}
+
+main > section:last-child {
+    margin-bottom: 0;
+}
+
+/* --- Headings ------------------------------------------------------------- */
+h2 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+}
+
+/* --- Body copy and links --------------------------------------------------- */
+p {
+    margin: 0 0 1rem;
+    color: var(--text-soft);
+}
+
+a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--teal);
+}
+
+a:hover,
+a:focus {
+    color: var(--amber);
+    border-bottom-color: var(--amber);
+}
+
+/* --- Footer --------------------------------------------------------------- */
+footer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: var(--text-soft);
+}
+
+/* --- Small screens -------------------------------------------------------- */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem 0.5rem 2rem;
+    }
+
+    h1 {
+        padding: 1.5rem 1rem;
+    }
+
+    main {
+        padding: 1.25rem;
+    }
+
+    main > section {
+        padding: 1rem;
+    }
+}
